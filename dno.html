@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>class 제어</title>
+    <style>
+        .btn {
+            width: 80px;
+            text-align: center;
+            border: 3px solid #000;
+            padding: 5px 10px;
+        }
+
+        .btn.style {
+            background-color: tomato;
+            color: #fff;
+        }
+
+        .bg {
+            background-color: lightskyblue;
+        }
+
+        .orange {
+            background-color: orange;
+        }
+
+        .bold {
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .normal {
+            font-weight: normal;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>js에서의 클래스 제어</h1>
+    <div class="btn">버튼</div>
+    <p></p>
+    <ul>
+        <li>텍스트1</li>
+        <li>텍스트2</li>
+        <li>텍스트3</li>
+    </ul>
+
+    <script>
+        const btn = document.querySelector('.btn');
+        const p = document.querySelector('p');
+        const h1 = document.querySelector('h1');
+        const ul = document.querySelector('ul');
+        const lis = document.querySelectorAll('li');
+
+        // .classList.add(); 클래스 속성 추가
+        document.body.classList.add('bg');
+        btn.classList.add('style');
+
+        // .classList.remove(); 클래스 속성 제거
+        btn.classList.remove('style');
+
+        // .classList.toggle(); .add(), .remove()의 반복
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('style');
+
+            // .contains(); 해당 클래스 속성 여부를 true, false로 반환
+            const isBold = p.classList.contains('bold');
+            console.log(isBold);
+
+            if (isBold) {// text추가, .bold 제거
+                p.textContent = `${isBold} 반환. 클래스 bold 없음`;
+                p.classList.remove('bold');
+            } else {// text추가, .bold 추가
+                p.textContent = `${isBold} 반환. 클래스 bold 있음`;
+                p.classList.add('bold');
+            }
+        });
+
+        // .className 속성. 클래스 값을 가져오거나 변경
+        h1.className = 'normal';
+        h1.className = 'orange';// 교체
+        h1.classList.add('normal');// 추가
+
+        lis.forEach(li => li.className = 'orange');
+
+        // .replace('탐색클래스','바꿀클래스');
+        lis.forEach(li => li.classList.replace('orange', 'bold'));
+
+        /*
+        btn.addEventListener('click', () => {
+          lis.forEach(li => li.classList.replace('orange', 'bold'));
+        });
+        */
+    </script>
+</body>
+
+</html>
