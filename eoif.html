@@ -8,17 +8,15 @@
     <link rel="stylesheet" href="./index.css">
     <link rel="shortcut icon" href="./img/favicon .ico" type="image/x-icon">    
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <main>
     <h1>TOPSTER</h1>
         <form>
             <div class="form_box1">
-            <div>
                 <label class="title">제목입력 : <input name="title"  type="text" id="title"></label>
                 <button class="title_btn" type="submit">입력</button>
-            </div>
+
             <div>
                 <label class="frame_num">가로: <input type="number" min='1' max='4'></label>
                 <label class="frame_num">세로: <input type="number" min='1' max='4'></label>
@@ -30,12 +28,18 @@
                 <input name="color" value="gray" class="radio_gray" id="chk" type="radio">
                 <input name="color" value="green" class="radio_green" id="chk" type="radio">
             </div>
+           
+           <div>
+                <button class="my_topster" type="submit">내 탑스터보기</button><br>
+                
+            </div> 
         </div>
 
         <div class="form_box2">
             <br>
-            <label class="search_bar">아티스트의 활동명 / 앨범명 / 음원이름을 검색해주세요 <br>
-            <input type="text"></label> <button class="search_btn" type="submit">검색</button>
+            <label class="search_bar">아티스트의 활동명이나 / 앨범명 / 음원이름을 검색해주세요 <br>
+            <br>
+            <input type="text"> <button type="submit">검색</button></label>
             <br>
             <div class="search"></div>
         </div>
@@ -86,9 +90,6 @@
 
                 download(canvas, 'screenshot.png');
             });
-
-            
         </script>
-        <script src="./index.js"></script>
 </body>
 </html>

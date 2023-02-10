@@ -36,14 +36,27 @@
  }
 
 .form_box1{
-    justify-content: space-between;
     display: flex;
+    justify-content: space-around
 }
 
 .form_box1 button{
     width: 85px; height: 32px;
     font-size: 11px;
     margin-bottom: 10px;
+}
+
+
+
+.search_btn{
+ width: 100px;
+ height: 30px;
+}
+
+#download-btn{
+    width: 85px; height: 32px;
+    font-size: 11px;
+    position: absolute;
 }
 
  .title>input {
@@ -62,7 +75,7 @@
 
  .search_bar>button {
      position: absolute;
-     right: -50px;
+     right: 50px;
      height: 30px;
  }
 
@@ -129,8 +142,6 @@ section{
 
  article {
      width: 100%;
-     min-width: 800px;
-     height: 850px;
      margin: auto;
      display: flex; 
      flex-wrap: wrap;
@@ -144,3 +155,4 @@ section{
     border: 1px solid black;
 
  }
+

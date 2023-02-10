@@ -1,3 +1,6 @@
+
+
+// 제목짓기
 function prinTitle(){
     const titleInput = document.querySelector('#title') //input
     const btn = document.querySelector('.title_btn') //btn
@@ -18,6 +21,8 @@ function prinTitle(){
 
 prinTitle()
 
+
+// 프레임 색상 바꾸기
 function frameColor(e){
     const frame = document.querySelector("section") //section
     const black = document.querySelector('.radio_black')
@@ -78,16 +83,40 @@ frameColor();
 
 
 
+// 앨범커버 검색기능
+
+/* let url = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json'
+fetch(url).then(response => response.json())
+.then(json => console.log(json))
+.catch(error => console.log(error))
+ */
 
 
-function musicApi(){
-    axios.get('https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=d9d404f783c734f98e7c86aba99984ee&format=json')
-		.then(res => res.data)
-        .then(data => console.log(data));
-}
+/* let url = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json'
+fetch(url).then(response => response.json())
+.then(json => {
+    let music = json
+    let img = music.results.albummatches.album[0].image[3];
+    console.log(img)
+   
+})
+.catch(error => console.log(error))
+ */
+
+let url = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json'
+fetch(url).then(response => response.json())
+.then(json => {
+    let music = json
+    let img = music.results.albummatches.album;
+    console.log(img)
+})
+.catch(error => console.log(error))
 
 
-/* Application name	topster
-API key	d9d404f783c734f98e7c86aba99984ee
-Shared secret	d8824e0b67152e38cc11392215916a87
-Registered to	kimha9 */
+/* let music = response['resulte']['trackmatches']["track"];
+for (let i=0; i < music.length; i++){
+    let albumImg = music[i]['image'][0]["#text"]
+
+    console.log(albumImg)
+} */
+
