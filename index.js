@@ -85,38 +85,22 @@ frameColor();
 
 // 앨범커버 검색기능
 
-/* let url = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json'
-fetch(url).then(response => response.json())
-.then(json => console.log(json))
-.catch(error => console.log(error))
- */
+function getAlbum(title){
+    let url = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
+    fetch(url)
+    .then((response) => response.json())
+    .then((json) => {
+        const album = json.results.trackmatches.track;
+        album.map((data) => {
+            // console.log(data.image[2]) 사이즈랑 이미지 url출력
+            // console.log(data)전체출력
+            // console.log(data.artist) 아티스트명 출력
+            console.log(data.name)
+        //   const div = document.querySelector('.search');
+        //   div.innerHTML = `<ul><li>${data.image[2]}</li></ul>`
+        })
+    })
+}
 
 
-/* let url = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json'
-fetch(url).then(response => response.json())
-.then(json => {
-    let music = json
-    let img = music.results.albummatches.album[0].image[3];
-    console.log(img)
-   
-})
-.catch(error => console.log(error))
- */
-
-let url = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json'
-fetch(url).then(response => response.json())
-.then(json => {
-    let music = json
-    let img = music.results.albummatches.album;
-    console.log(img)
-})
-.catch(error => console.log(error))
-
-
-/* let music = response['resulte']['trackmatches']["track"];
-for (let i=0; i < music.length; i++){
-    let albumImg = music[i]['image'][0]["#text"]
-
-    console.log(albumImg)
-} */
-
+getAlbum()

@@ -3,33 +3,63 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>async.. await.. ex1</title>
+  <title>async.. await.. 3</title>
+  <style>
+    ul {
+      margin: 0;
+      padding: 10px;
+      width: 50vw;
+      list-style: none;
+    }
+
+    ul li {
+      margin: 50px auto;
+      border: 1px solid #000;
+      padding: 10px;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="result"></div>
+  <h1>카카오 책 검색</h1>
+  <ul id="result"></ul>
 
   <script>
     const result = document.querySelector('#result');
-    const URL = 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=believe&api_key=7108708792074ac473a8d262368a6c78&format=json';
 
-    // photos 데이터 중 랜덤으로 title과 url 출력
-    // title명의 글자 출력 수 10자리까지만
+    const getBooks = async () => {
+      const res = await fetch(
+        "https://dapi.kakao.com/v3/search/book?query=동화", {
+        "method": "GET",
+        "headers": {
+          "Host": "dapi.kakao.com",
+          "Authorization": "KakaoAK 24351b63ff85b01997cab9dd498313cc"
+        }
+      }
+      );
+      const json = await res.json();
+      console.log(json.documents);
 
-    (async () => {
-      const res = await fetch(URL);
-      const pics = await res.json();
-
-      userPics(pics);
-    })();
-
-    function userPics(pics) {
-      const random = Math.trunc(Math.random() * 100);
-      result.innerHTML = `
-          <h3>${pics[random].image(0)}</h3>
-          <img src=${pics[random].thumbnailUrl} alt=${pics[random].title}>
-      `;
+      books(json.documents);
     }
+
+    function books(items) {
+      let output = '';
+      items.forEach(item => {
+        output += `
+        <li>
+          <h3>${item.title}</h3>
+          <p><img src=${item.thumbnail} alt=${item.title}></p>
+          <p>${item.authors}</p>
+          <p>${item.price}</p>
+          <p>${item.status}</p>
+        </li>
+        `;
+      });
+      result.innerHTML = output;
+    }
+
+    getBooks();
   </script>
 </body>
 
