@@ -85,22 +85,53 @@ frameColor();
 
 // 앨범커버 검색기능
 
-function getAlbum(title){
-    let url = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
+function getAlbum(){
+    const searchInput = document.querySelector('.search_input')
+    let title = searchInput.value;
+    let url =   url =`https://ws.audioscrobbler.com/2.0/?method=album.search&album=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
+    
     fetch(url)
     .then((response) => response.json())
     .then((json) => {
-        const album = json.results.trackmatches.track;
+        const album = json.results.albummatches.album;
         album.map((data) => {
-            // console.log(data.image[2]) 사이즈랑 이미지 url출력
-            // console.log(data)전체출력
-            // console.log(data.artist) 아티스트명 출력
-            console.log(data.name)
-        //   const div = document.querySelector('.search');
-        //   div.innerHTML = `<ul><li>${data.image[2]}</li></ul>`
+            const div = document.querySelector('.album_search');
+            div.innerHTML += `
+            <li><img  draggable="true" 
+            ondragstart="drag(event)" id="album_img" class='draggale' src=${data.image[2]['#text']}></li>
+        ` 
         })
     })
 }
 
-
 getAlbum()
+
+
+
+
+//드래그 앤 드롭
+
+function dragEnter(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text"); 
+    ev.target.appendChild(document.getElementById(data)); 
+}
+
+//셀 크기 조절 
+
+const cellNum1 = document.querySelector(".album_box1")
+const cellNum2 = document.querySelector(".album_box2")
+const cellNum3 = document.querySelector(".album_box3")
+const cellNum4 = document.querySelector(".album_box4")
+const cellInput = document.querySelector('.frame_num')
+
+
+

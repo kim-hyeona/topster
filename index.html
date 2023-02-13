@@ -9,6 +9,12 @@
     <link rel="shortcut icon" href="./img/favicon .ico" type="image/x-icon">    
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
+  ></script>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"
+  ></script>  
 </head>
 <body>
     <main>
@@ -20,8 +26,7 @@
                 <button class="title_btn" type="submit">입력</button>
             </div>
             <div>
-                <label class="frame_num">가로: <input type="number" min='1' max='4'></label>
-                <label class="frame_num">세로: <input type="number" min='1' max='4'></label>
+                <label class="frame_num">층: <input type="number" min='1' max='4' value="4"></label>
                 <br>
                 <label for="chk" class="frame">프레임: </label>
                 <input name="color" value="black" class="radio_black" id="chk" type="radio">
@@ -31,14 +36,16 @@
                 <input name="color" value="green" class="radio_green" id="chk" type="radio">
             </div>
         </div>
-
+    </form>
+    <form>
         <div class="form_box2">
             <br>
-            <label class="search_bar">아티스트의 활동명 / 앨범명 / 음원이름을 검색해주세요 <br>
-            <input type="text"></label> <button class="search_btn" type="submit">검색</button>
+            <label class="search_bar"><em>*만약 결과가 출력되지 않는다면 영문으로 검색해주세요♡</em> <br>            
+            <input class="search_input" type="text" placeholder=" 활동명/앨범명을 최대한 정확하게 입력해주세요!!"></label> <button class="search_btn" type="submit">검색</button>
             <br>
-            <div class="search">
-                <ul></ul>
+            <div  ondrop="drop(event)" 
+            ondragover="dragEnter(event)" class="search">
+                <ul  class="album_search"></ul>
             </div>
         </div>
         </form>
@@ -46,49 +53,50 @@
     <section id="capture">
         <h2 class="title"></h2>
             <article>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box1"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box1"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box1"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box1"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box2"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box2"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box2"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box2"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box3"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box3"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box3"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box3"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box4"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box4"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box4"></div>
+                <div  ondrop="drop(event)" 
+                ondragover="dragEnter(event)" class="album_box4"></div>
             </article>
         </section>
         
         
          </main>
         <script>
-             const getTopsterElement = async (element) => {
-                const canvas = await html2canvas(element);
-
-                return canvas;
-            };
-
-            const download = (canvas, filename) => {
-                const link = document.createElement('a');
-
-                link.download = filename;
-                link.href = canvas.toDataURL();
-                link.click();
-            };
-
-            document.querySelector('#download-btn').addEventListener('click', async () => {
-                const target = document.querySelector('#capture');
-                const canvas = await getTopsterElement(target);
-
-                download(canvas, 'screenshot.png');
-            });
-
+            document.getElementById('download-btn').onclick = function(){
+            domtoimage.toBlob(document.getElementById('capture'))
+                .then(function (blob) {
+                window.saveAs(blob, 'topster.png');
+          });
+        }
             
         </script>
         <script src="./index.js"></script>
