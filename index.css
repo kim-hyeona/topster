@@ -74,6 +74,15 @@
     display: flex;
  }
 
+ .album_drg{
+    list-style: none;
+    padding: 0
+ }
+
+ #album_img{
+    width: 180px;
+ }
+
  .search_bar>input {
      width: 400px;
      height: 30px;
@@ -166,6 +175,7 @@ section{
     background-color: white;
     width: 180px; height: 180px;
     margin: 12px;
-
  }
+
+ 
 

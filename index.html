@@ -7,14 +7,9 @@
     <title>TOPSTER : curious about your preference</title>
     <link rel="stylesheet" href="./index.css">
     <link rel="shortcut icon" href="./img/favicon .ico" type="image/x-icon">    
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
-  ></script>
-  <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"
-  ></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js" ></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script> 
 </head>
 <body>
     <main>
@@ -22,9 +17,10 @@
         <form>
             <div class="form_box1">
             <div>
-                <label class="title">제목입력 : <input name="title"  type="text" id="title"></label>
+                <label class="title">제목입력 : <input name="title" placeholder="어떤 음악이 주제인가요?"  type="text" id="title"></label>
                 <button class="title_btn" type="submit">입력</button>
             </div>
+            
             <div>
                 <label class="frame_num">층: <input type="number" min='1' max='4' value="4"></label>
                 <br>
@@ -37,60 +33,47 @@
             </div>
         </div>
     </form>
+<!-- 서치바 -->
     <form>
         <div class="form_box2">
             <br>
             <label class="search_bar"><em>*만약 결과가 출력되지 않는다면 영문으로 검색해주세요♡</em> <br>            
-            <input class="search_input" type="text" placeholder=" 활동명/앨범명을 최대한 정확하게 입력해주세요!!"></label> <button class="search_btn" type="submit">검색</button>
+            <input class="search_input" type="text" autocomplete="on" placeholder=" 활동명/앨범명을 최대한 정확하게 입력해주세요!!"></label> <button class="search_btn" type="submit">검색</button>
             <br>
-            <div  ondrop="drop(event)" 
-            ondragover="dragEnter(event)" class="search">
-                <ul  class="album_search"></ul>
+            <div class="search">
+                <ul  class="album_search album_drg"></ul>
             </div>
         </div>
-        </form>
+    </form>
+
         <button id="download-btn">다운로드</button>
     <section id="capture">
         <h2 class="title"></h2>
-            <article>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box1"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box1"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box1"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box1"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box2"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box2"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box2"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box2"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box3"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box3"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box3"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box3"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box4"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box4"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box4"></div>
-                <div  ondrop="drop(event)" 
-                ondragover="dragEnter(event)" class="album_box4"></div>
+            <article ondrop="drop(event)" 
+            ondragover="dragEnter(event)">
+                <div class="album_box1 album_drg"></div>
+                <div class="album_box1 album_drg"></div>
+                <div class="album_box1 album_drg"></div>
+                <div class="album_box1 album_drg"></div>
+                <div class="album_box2 album_drg"></div>
+                <div class="album_box2 album_drg"></div>
+                <div class="album_box2 album_drg"></div>
+                <div class="album_box2 album_drg"></div>
+                <div class="album_box3 album_drg"></div>
+                <div class="album_box3 album_drg"></div>
+                <div class="album_box3 album_drg"></div>
+                <div class="album_box3 album_drg"></div>
+                <div class="album_box4 album_drg"></div>
+                <div class="album_box4 album_drg"></div>
+                <div class="album_box4 album_drg"></div>
+                <div class="album_box4 album_drg"></div>
             </article>
         </section>
         
         
          </main>
         <script>
+            // 다운로드 기능
             document.getElementById('download-btn').onclick = function(){
             domtoimage.toBlob(document.getElementById('capture'))
                 .then(function (blob) {

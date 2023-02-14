@@ -11,8 +11,6 @@ function prinTitle(){
 
         if(titleInput.value){
             title.innerText = titleInput.value
-        }else{
-            alert('탑스터의 주제를 알려주세요!')
         }
 
         titleInput.value = '';
@@ -85,11 +83,42 @@ frameColor();
 
 // 앨범커버 검색기능
 
+
 function getAlbum(){
     const searchInput = document.querySelector('.search_input')
-    let title = searchInput.value;
-    let url =   url =`https://ws.audioscrobbler.com/2.0/?method=album.search&album=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
-    
+    const searchBtn = document.querySelector('.search_btn')
+
+    searchBtn.addEventListener('click',event => {
+        event.preventDefault();
+
+        if(searchInput.value){
+            title = searchInput.value
+        }
+
+        let url = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
+        fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+            const div = document.querySelector('.album_search');
+            let output = '';
+
+            json.results.albummatches.album.forEach((albums) => {
+            if (albums) {
+                output += `
+                    <li  draggable="true"><img id="album_img" src=${albums.image[2]['#text']}</li>
+                `;
+              }
+            });
+            div.innerHTML = output;
+          })
+        
+        }) 
+        
+
+
+
+
+   /*  let url = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
     fetch(url)
     .then((response) => response.json())
     .then((json) => {
@@ -97,11 +126,10 @@ function getAlbum(){
         album.map((data) => {
             const div = document.querySelector('.album_search');
             div.innerHTML += `
-            <li><img  draggable="true" 
-            ondragstart="drag(event)" id="album_img" class='draggale' src=${data.image[2]['#text']}></li>
+            <li  draggable="true"><img id="album_img" src=${data.image[2]['#text']}></li>
         ` 
         })
-    })
+    }) */
 }
 
 getAlbum()
@@ -111,27 +139,29 @@ getAlbum()
 
 //드래그 앤 드롭
 
-function dragEnter(ev) {
-    ev.preventDefault();
-}
+const columns = document.querySelectorAll(".album_drg");
+columns.forEach((column) => {
+  new Sortable(column, {
+    group: "shared",
+    animation: 150,
+    ghostClass: "blue-background-class"
+  });
+});
 
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text"); 
-    ev.target.appendChild(document.getElementById(data)); 
-}
 
 //셀 크기 조절 
 
-const cellNum1 = document.querySelector(".album_box1")
-const cellNum2 = document.querySelector(".album_box2")
-const cellNum3 = document.querySelector(".album_box3")
-const cellNum4 = document.querySelector(".album_box4")
-const cellInput = document.querySelector('.frame_num')
 
 
+function cellNumHandle(){
+    const cellNum2 = document.querySelector(".album_box2")
+    const cellNum3 = document.querySelector(".album_box3")
+    const cellNum4 = document.querySelector(".album_box4")
+    const cellInput = document.querySelector('.frame_num').value;
+
+
+  
+}
+
+cellNumHandle()
 
