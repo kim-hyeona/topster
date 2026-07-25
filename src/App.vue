@@ -504,6 +504,7 @@ async function downloadCapture() {
 
 .btn-download {
   margin-top: auto;
+  transform: translateY(-25px);
   padding: 10px;
   font-weight: 600;
 }
