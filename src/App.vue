@@ -104,6 +104,9 @@
           :key="i"
           class="cell"
           :style="cellStyle"
+          :draggable="!!cells[i]"
+          @dragstart="onCellDragStart($event, i)"
+          @dragend="onCellDragEnd"
           @dragover.prevent
           @drop="onDrop($event, i)"
           @dblclick="removeAlbum(i)"
@@ -143,6 +146,7 @@ const searchResults = ref([])
 const searchError = ref('')
 const hasSearched = ref(false)
 const draggingAlbum = ref(null)
+const draggingFromCell = ref(null)
 
 async function searchAlbums() {
   if (!searchQuery.value.trim()) return
@@ -190,13 +194,36 @@ function insertAlbum(album) {
   }
 }
 
-// 드롭으로 특정 셀에 삽입
+// 드롭으로 특정 셀에 삽입 (검색결과 or 그리드 내 이동)
 function onDrop(event, cellIndex) {
   event.preventDefault()
+
+  if (draggingFromCell.value !== null) {
+    const from = draggingFromCell.value
+    if (from !== cellIndex) {
+      const temp = cells.value[cellIndex]
+      cells.value[cellIndex] = cells.value[from]
+      cells.value[from] = temp
+    }
+    draggingFromCell.value = null
+    return
+  }
+
   if (draggingAlbum.value) {
     cells.value[cellIndex] = draggingAlbum.value
     draggingAlbum.value = null
   }
+}
+
+// 그리드 안 앨범을 드래그로 옮길 때
+function onCellDragStart(event, i) {
+  if (!cells.value[i]) return
+  draggingFromCell.value = i
+  event.dataTransfer.effectAllowed = 'move'
+}
+
+function onCellDragEnd() {
+  draggingFromCell.value = null
 }
 
 // 셀 클릭으로 제거 (이미지 있을 때만)
@@ -520,6 +547,14 @@ async function downloadCapture() {
 
 .cell:hover {
   opacity: 0.85;
+}
+
+.cell[draggable="true"] {
+  cursor: grab;
+}
+
+.cell[draggable="true"]:active {
+  cursor: grabbing;
 }
 
 .cell-img {
