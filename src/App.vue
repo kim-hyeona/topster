@@ -62,6 +62,7 @@
             max="360"
             v-model="colorHue"
             class="color-slider"
+            @input="onColorInput"
           />
           <span class="color-preview" :style="{ background: borderColor }"></span>
         </div>
@@ -127,7 +128,7 @@ const API_KEY = '7108708792074ac473a8d262368a6c78'
 
 // 타이틀
 const titleDraft = ref('')
-const displayTitle = ref('2024 my best k-pop')
+const displayTitle = ref('')
 function applyTitle() {
   if (titleDraft.value.trim()) {
     displayTitle.value = titleDraft.value.trim()
@@ -204,11 +205,21 @@ function removeAlbum(i) {
 
 // 컬러
 const colorHue = ref(0)
-const borderColor = computed(() => `hsl(${colorHue.value}, 70%, 60%)`)
+const colorTouched = ref(false)
+
+function onColorInput() {
+  colorTouched.value = true
+}
+
+const borderColor = computed(() =>
+  colorTouched.value ? `hsl(${colorHue.value}, 70%, 60%)` : '#000000'
+)
 
 // 스타일
 const captureStyle = computed(() => ({
-  background: `hsl(${colorHue.value}, 60%, 80%)`,
+  background: colorTouched.value
+    ? `hsl(${colorHue.value}, 60%, 80%)`
+    : '#000000',
 }))
 
 const CELL_SIZE = 160
