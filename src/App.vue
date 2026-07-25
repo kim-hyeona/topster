@@ -53,18 +53,16 @@
         </div>
       </div>
 
-      <!-- 컬러 슬라이더 (그리드 셀 테두리/간격 색) -->
+      <!-- 컬러 선택 (그리드 셀 테두리/간격 색) -->
       <div class="section color-section">
         <div class="color-bar-wrap">
           <input
-            type="range"
-            min="0"
-            max="360"
-            v-model="colorHue"
-            class="color-slider"
-            @input="onColorInput"
+            type="color"
+            v-model="frameColor"
+            class="color-picker"
           />
           <span class="color-preview" :style="{ background: borderColor }"></span>
+          <span class="color-hex">{{ frameColor }}</span>
         </div>
 
         <!-- 그리드 사이즈 -->
@@ -204,22 +202,12 @@ function removeAlbum(i) {
 }
 
 // 컬러
-const colorHue = ref(0)
-const colorTouched = ref(false)
-
-function onColorInput() {
-  colorTouched.value = true
-}
-
-const borderColor = computed(() =>
-  colorTouched.value ? `hsl(${colorHue.value}, 70%, 60%)` : '#000000'
-)
+const frameColor = ref('#000000')
+const borderColor = computed(() => frameColor.value)
 
 // 스타일
 const captureStyle = computed(() => ({
-  background: colorTouched.value
-    ? `hsl(${colorHue.value}, 60%, 80%)`
-    : '#000000',
+  background: frameColor.value,
 }))
 
 const CELL_SIZE = 160
@@ -400,28 +388,23 @@ async function downloadCapture() {
   gap: 10px;
 }
 
-.color-slider {
-  flex: 1;
-  -webkit-appearance: none;
-  height: 16px;
-  border-radius: 8px;
-  background: linear-gradient(to right,
-    hsl(0,70%,60%), hsl(45,70%,60%), hsl(90,70%,60%),
-    hsl(135,70%,60%), hsl(180,70%,60%), hsl(225,70%,60%),
-    hsl(270,70%,60%), hsl(315,70%,60%), hsl(360,70%,60%)
-  );
-  outline: none;
+.color-picker {
+  width: 48px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  padding: 0;
   cursor: pointer;
+  background: none;
 }
 
-.color-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid #aaa;
-  cursor: pointer;
+.color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: 2px solid #bbb;
+  border-radius: 6px;
 }
 
 .color-preview {
@@ -430,6 +413,12 @@ async function downloadCapture() {
   border-radius: 50%;
   border: 2px solid #bbb;
   flex-shrink: 0;
+}
+
+.color-hex {
+  font-size: 12px;
+  color: #666;
+  font-family: monospace;
 }
 
 .grid-size-row {
@@ -500,7 +489,12 @@ async function downloadCapture() {
 .capture-title {
   font-size: 22px;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
   letter-spacing: -0.3px;
 }
 
