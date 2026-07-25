@@ -106,7 +106,7 @@
           :style="cellStyle"
           @dragover.prevent
           @drop="onDrop($event, i)"
-          @click="removeAlbum(i)"
+          @dblclick="removeAlbum(i)"
         >
           <img
             v-if="cells[i]"
@@ -116,6 +116,7 @@
           />
         </div>
       </div>
+      <p class="grid-hint">더블클릭하면 그리드에서 빠져요</p>
     </main>
   </div>
 </template>
@@ -506,6 +507,11 @@ async function downloadCapture() {
 
 .grid {
   /* gridStyle로 동적 설정 */
+}
+
+.grid-hint {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .cell {
