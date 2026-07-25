@@ -1,0 +1,18 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Space Grotesk', 'Pretendard', sans-serif;
+  background: #e8e8e8;
+  min-height: 100vh;
+}
+
+:root {
+  --panel-bg: #e8e8e8;
+  --input-bg: #d4d4d4;
+  --border-radius: 4px;
+  --accent: #ff6b6b;
+}
