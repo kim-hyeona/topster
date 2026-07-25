@@ -41,10 +41,12 @@
             :title="album.name"
           >
             <img
-              v-if="album.image"
+              v-if="album.image && !album.broken"
               :src="album.image"
               :alt="album.name"
               class="result-img"
+              loading="lazy"
+              @error="album.broken = true"
             />
             <div v-else class="result-placeholder">?</div>
           </div>
@@ -337,17 +339,21 @@ async function downloadCapture() {
   min-height: 100px;
   max-height: 280px;
   overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
   gap: 6px;
   padding: 8px;
 }
 
 .result-item {
+  width: 96px;
+  height: 96px;
+  flex: 0 0 96px;
   cursor: grab;
   border-radius: 3px;
   overflow: hidden;
-  aspect-ratio: 1;
   background: #bbb;
   transition: opacity 0.15s;
 }
