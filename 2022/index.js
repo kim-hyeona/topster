@@ -95,7 +95,7 @@ function getAlbum(){
             title = searchInput.value
         }
 
-        let url = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
+        let url = `/api/albums?q=${encodeURIComponent(title)}`
         fetch(url)
         .then((response) => response.json())
         .then((json) => {
@@ -118,7 +118,7 @@ function getAlbum(){
 
 
 
-   /*  let url = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${title}&api_key=7108708792074ac473a8d262368a6c78&format=json`
+   /*  let url = `/api/albums?q=${encodeURIComponent(title)}`
     fetch(url)
     .then((response) => response.json())
     .then((json) => {
@@ -164,4 +164,5 @@ function cellNumHandle(){
 }
 
 cellNumHandle()
+
 
