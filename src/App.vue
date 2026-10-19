@@ -128,7 +128,6 @@
 import { ref, computed, watch } from 'vue'
 import domtoimage from 'dom-to-image'
 
-const API_KEY = '7108708792074ac473a8d262368a6c78'
 
 // 타이틀
 const titleDraft = ref('')
@@ -153,8 +152,9 @@ async function searchAlbums() {
   searchError.value = ''
   hasSearched.value = true
   try {
-    const url = `https://ws.audioscrobbler.com/2.0/?method=album.search&album=${encodeURIComponent(searchQuery.value)}&api_key=${API_KEY}&format=json`
+    const url = `/api/albums?q=${encodeURIComponent(searchQuery.value.trim())}`
     const res = await fetch(url)
+    if (!res.ok) throw new Error('Album search failed')
     const json = await res.json()
     const albums = json?.results?.albummatches?.album ?? []
     searchResults.value = albums
